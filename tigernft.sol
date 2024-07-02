@@ -11,6 +11,7 @@ contract tigernft is ERC721, Ownable {
     uint256 public constant MAX_SUPPLY = 10;
     uint256 public totalSupply = 0;
     string private baseTokenURI;
+    mapping(uint256 => address) private _tokenOwners;
 
     constructor(string memory name, string memory symbol) ERC721(name, symbol) Ownable(msg.sender){
         baseTokenURI = "ipfs://bafybeihrklb222sgiowrjceg76rmqqpzqiyujmnufv3cq57ssemdxbbe4u/";
@@ -21,6 +22,7 @@ contract tigernft is ERC721, Ownable {
         uint256 tokenId = totalSupply + 1;
         totalSupply++;
         _safeMint(msg.sender, tokenId);
+         _tokenOwners[tokenId] = msg.sender;  // Track token ownership
     }
 
     function _baseURI() internal view override returns (string memory) {
@@ -28,9 +30,7 @@ contract tigernft is ERC721, Ownable {
     }
 
     function tokenURI(uint256 tokenId) public view override returns (string memory) {
-        require(_owners[tokenId] != address(0), "ERC721Metadata: URI query for nonexistent token");
+        require(_tokenOwners[tokenId] != address(0), "ERC721Metadata: URI query for nonexistent token");
         return string(abi.encodePacked(baseTokenURI, tokenId.toString(), ".json"));
     }
-
-    
 }
