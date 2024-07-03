@@ -30,6 +30,6 @@ contract tigernft is ERC721 {
 
     function tokenURI(uint256 tokenId) public view override returns (string memory) {
         require(_tokenOwners[tokenId] != address(0), "ERC721Metadata: URI query for nonexistent token");
-        return string(abi.encodePacked(baseTokenURI, tokenId.toString(), ".json"));
+        return string(abi.encodePacked(baseTokenURI, tokenId.toString()));
     }
 }

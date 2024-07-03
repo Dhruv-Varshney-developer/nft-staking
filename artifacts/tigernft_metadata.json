@@ -618,8 +618,8 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": false,
-			"runs": 200
+			"enabled": true,
+			"runs": 1000
 		},
 		"remappings": []
 	},
@@ -713,11 +713,11 @@
 			]
 		},
 		"module-2/tigernft.sol": {
-			"keccak256": "0x65090383065a77c90baebd7e797adab2e4015d425174ea7591c9430a4c3e9dfa",
+			"keccak256": "0xc96383d6e5ae13a9cae5eabe24c9c42b7b8d2469fc8754962e0b917c856efd5c",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://694a1bf5a9f3a47a3d96e9cf499e0b2767f5b46a04989d67a6c874b4b00f602a",
-				"dweb:/ipfs/QmUvUpDCMb1kJYf4wNdJEvGB8vJa5kCbNSodMHA6f5F72J"
+				"bzz-raw://0c353f1cda61c474b3286550e955eaef5f7877e2548d41dc2c629be80463b857",
+				"dweb:/ipfs/QmWsQaU5pTDKbwfpBivLPNgM1DbrAmdrfWq9E7qEGzYpHq"
 			]
 		}
 	},
