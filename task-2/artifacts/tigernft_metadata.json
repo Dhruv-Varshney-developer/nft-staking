@@ -282,7 +282,13 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					}
+				],
 				"name": "mint",
 				"outputs": [],
 				"stateMutability": "nonpayable",
@@ -713,11 +719,11 @@
 			]
 		},
 		"module-2/task-2/myERC721.sol": {
-			"keccak256": "0xc96383d6e5ae13a9cae5eabe24c9c42b7b8d2469fc8754962e0b917c856efd5c",
+			"keccak256": "0x6af22720ee953f825df59505e7823a33efcf3d4152fbf711e50bebacd4be5291",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://0c353f1cda61c474b3286550e955eaef5f7877e2548d41dc2c629be80463b857",
-				"dweb:/ipfs/QmWsQaU5pTDKbwfpBivLPNgM1DbrAmdrfWq9E7qEGzYpHq"
+				"bzz-raw://be6a6f11660eef2936f327b46b86fdaa8ccaa3def88c52a79cfc984e7f5d5ff8",
+				"dweb:/ipfs/Qmbjf7fmcq7SGGfHreZtF7qBV1yUp7JSnrMppwQN2fyg9X"
 			]
 		}
 	},

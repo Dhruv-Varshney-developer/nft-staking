@@ -16,12 +16,12 @@ contract tigernft is ERC721 {
         baseTokenURI = "ipfs://bafybeihrklb222sgiowrjceg76rmqqpzqiyujmnufv3cq57ssemdxbbe4u/";
     }
 
-    function mint(address user ) external {
+    function mint(address to ) external {
         require(totalSupply < MAX_SUPPLY, "All NFTs have been minted");
         uint256 tokenId = totalSupply + 1;
         totalSupply++;
-        _safeMint(user, tokenId);
-         _tokenOwners[tokenId] = msg.sender;  // Track token ownership
+        _safeMint(to, tokenId);
+         _tokenOwners[tokenId] = to;  // Track token ownership
     }
 
     function _baseURI() internal view override returns (string memory) {
