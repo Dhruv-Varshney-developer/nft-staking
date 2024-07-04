@@ -1,14 +1,16 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "module-2/task-3/ERC20T3.sol";
+import "module-2/task-3/TigernftT3.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
 
-contract NFTStaking is ReentrancyGuard, Ownable {
-    IERC20 public rewardToken;
-    IERC721 public stakableNFT;
+
+contract NFTStaking is ReentrancyGuard, Ownable,IERC721Receiver {
+    ERC20T3 public rewardToken;
+    tigernft public stakableNFT;
     uint256 public rewardRate = 10; // 10 ERC20 tokens per day
 
     struct StakeInfo {
@@ -23,15 +25,16 @@ contract NFTStaking is ReentrancyGuard, Ownable {
     event Unstaked(address indexed user, uint256 tokenId);
     event RewardClaimed(address indexed user, uint256 amount);
 
-    constructor(IERC20 _rewardToken, IERC721 _stakableNFT) Ownable(msg.sender){
+    constructor(ERC20T3 _rewardToken, tigernft _stakableNFT) Ownable(msg.sender){
         rewardToken = _rewardToken;
         stakableNFT = _stakableNFT;
     }
 
     function stake(uint256 tokenId) external nonReentrant {
         require(stakes[msg.sender].tokenId == 0, "Already staking");
+        require(tokenId >= 1 && tokenId <= 10, "Invalid tokenId range");
 
-        stakableNFT.transferFrom(msg.sender, address(this), tokenId);
+        stakableNFT.safeTransferFrom(msg.sender, address(this), tokenId);
 
         stakes[msg.sender] = StakeInfo({
             tokenId: tokenId,
@@ -48,7 +51,7 @@ contract NFTStaking is ReentrancyGuard, Ownable {
 
         _claimReward(msg.sender);
 
-        stakableNFT.transferFrom(address(this), msg.sender, stakeInfo.tokenId);
+        stakableNFT.safeTransferFrom(address(this), msg.sender, stakeInfo.tokenId);
 
         delete stakes[msg.sender];
 
@@ -77,4 +80,12 @@ contract NFTStaking is ReentrancyGuard, Ownable {
         uint256 rewardAmount = (stakingDuration / 1 days) * rewardRate;
         return rewardAmount;
     }
+
+    // Implementing ERC721 receiver function
+    function onERC721Received(address operator, address from, uint256 tokenId, bytes calldata data) pure external override returns (bytes4) {
+        // Logic to handle the ERC721 token reception
+        // For simplicity, you can return the ERC721_RECEIVED selector
+        return this.onERC721Received.selector;
+    }
+
 }
