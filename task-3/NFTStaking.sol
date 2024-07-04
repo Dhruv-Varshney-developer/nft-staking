@@ -77,14 +77,21 @@ contract NFTStaking is ReentrancyGuard, Ownable,IERC721Receiver {
 
     function _calculateReward(StakeInfo memory stakeInfo) internal view returns (uint256) {
         uint256 stakingDuration = block.timestamp - stakeInfo.lastClaimTime;
-        uint256 rewardAmount = (stakingDuration / 1 days) * rewardRate;
+        uint256 rewardAmount = (stakingDuration / 15 seconds) * rewardRate;
         return rewardAmount;
+    }
+
+    function checkReward(address user) external view returns (uint256) {
+        StakeInfo memory stakeInfo = stakes[user];
+        if (stakeInfo.tokenId == 0) {
+            return 0;
+        }
+        return _calculateReward(stakeInfo);
     }
 
     // Implementing ERC721 receiver function
     function onERC721Received(address operator, address from, uint256 tokenId, bytes calldata data) pure external override returns (bytes4) {
-        // Logic to handle the ERC721 token reception
-        // For simplicity, you can return the ERC721_RECEIVED selector
+   
         return this.onERC721Received.selector;
     }
 
