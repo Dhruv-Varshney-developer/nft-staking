@@ -77,7 +77,7 @@ contract NFTStaking is ReentrancyGuard, Ownable,IERC721Receiver {
 
     function _calculateReward(StakeInfo memory stakeInfo) internal view returns (uint256) {
         uint256 stakingDuration = block.timestamp - stakeInfo.lastClaimTime;
-        uint256 rewardAmount = (stakingDuration / 15 seconds) * rewardRate;
+        uint256 rewardAmount = (stakingDuration / 1 days) * rewardRate;
         return rewardAmount;
     }
 
