@@ -120,6 +120,25 @@
 				"type": "event"
 			},
 			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "user",
+						"type": "address"
+					}
+				],
+				"name": "checkReward",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [],
 				"name": "claimReward",
 				"outputs": [],
@@ -249,11 +268,6 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "stakeTime",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
 						"name": "lastClaimTime",
 						"type": "uint256"
 					}
@@ -328,8 +342,8 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": true,
-			"runs": 1000
+			"enabled": false,
+			"runs": 200
 		},
 		"remappings": []
 	},
@@ -463,19 +477,19 @@
 			]
 		},
 		"module-2/task-3/ERC20T3.sol": {
-			"keccak256": "0x43bb988ee8382ba2f4c1fc644b168f946b8a916e36a8a5d1ee6ef0b36a4b68bf",
+			"keccak256": "0x4d010465092f523afa7a88295d751fc2a986a6344e39c8a61a7a6727344ac64a",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://9daeeded677dba5079d0be055c7e2f7d41068c414decd733e562c6248633df43",
-				"dweb:/ipfs/QmSVzgxWf2QeQg3R7ncgdmYzCcffqajrunYY2QVg7957hB"
+				"bzz-raw://cea1d7c6607042bd8ac4c9b41b0649f47c9648c2421caf844120627b10c07347",
+				"dweb:/ipfs/Qma45pnccD2ZwuiE8Gjj4PWJEivFNyn66GjL1tXFxoLo9e"
 			]
 		},
 		"module-2/task-3/NFTStaking.sol": {
-			"keccak256": "0x223f7f1f9af21919e10e802d9eadfb947b5f7ad8ee199e57d1eeadbfa4733192",
+			"keccak256": "0x915a9519f2d1334ffaab21f983b84f070c28938758c472fa0da34dc97d5498c1",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://1ec3443e4b2f6c6584f2ecc56d6a7f50100fc392b9946010a39999da52cf2df3",
-				"dweb:/ipfs/QmdVnj9Q3PhYfNng5Gc5sPbHaPmEPUC2i1nebx5JQo43pX"
+				"bzz-raw://ca21b39b8334bc746630a59496f64001b61874e284cc6802a4f08714ca780326",
+				"dweb:/ipfs/Qma6kphXkJCKgqpkX48E7c4Gs9EXBfZPtNHgyQp6K4L9dm"
 			]
 		},
 		"module-2/task-3/TigernftT3.sol": {

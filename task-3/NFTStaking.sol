@@ -15,7 +15,6 @@ contract NFTStaking is ReentrancyGuard, Ownable,IERC721Receiver {
 
     struct StakeInfo {
         uint256 tokenId;
-        uint256 stakeTime;
         uint256 lastClaimTime;
     }
 
@@ -38,7 +37,6 @@ contract NFTStaking is ReentrancyGuard, Ownable,IERC721Receiver {
 
         stakes[msg.sender] = StakeInfo({
             tokenId: tokenId,
-            stakeTime: block.timestamp,
             lastClaimTime: block.timestamp
         });
 
@@ -77,7 +75,7 @@ contract NFTStaking is ReentrancyGuard, Ownable,IERC721Receiver {
 
     function _calculateReward(StakeInfo memory stakeInfo) internal view returns (uint256) {
         uint256 stakingDuration = block.timestamp - stakeInfo.lastClaimTime;
-        uint256 rewardAmount = (stakingDuration / 1 days) * rewardRate;
+        uint256 rewardAmount = (stakingDuration * rewardRate) / 1 days;
         return rewardAmount;
     }
 
