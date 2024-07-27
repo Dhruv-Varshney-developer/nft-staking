@@ -1,0 +1,9 @@
+{
+  "extends": "solhint:recommended",
+  "rules": {
+    "no-global-import": "off",
+    "func-visibility": "off",
+    "reason-string": "off",
+    "custom-errors": "off"
+  }
+}

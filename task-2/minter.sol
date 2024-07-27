@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "module-2/task-2/myERC721.sol";
 import "module-2/task-2/MyERC20.sol";
 
-contract minter is Ownable {
+contract Minter is Ownable {
     MyERC20Token public paymentToken;
     tigernft public nftContract;
     uint256 public constant PRICE = 10 * 10 ** 18; // 10 tokens with 18 decimals

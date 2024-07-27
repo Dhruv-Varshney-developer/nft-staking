@@ -4,7 +4,7 @@ pragma solidity ^0.8.20;
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
-contract tigernft is ERC721 {
+contract TigerNFT is ERC721 {
     using Strings for uint256;
 
     uint256 public constant MAX_SUPPLY = 10;
@@ -12,7 +12,7 @@ contract tigernft is ERC721 {
     string private baseTokenURI;
     mapping(uint256 => address) private _tokenOwners;
 
-    constructor() ERC721("Tiger", "TGR") {
+    constructor() ERC721("Tiger", "TGR")  {
         baseTokenURI = "ipfs://bafybeihrklb222sgiowrjceg76rmqqpzqiyujmnufv3cq57ssemdxbbe4u/";
     }
 
