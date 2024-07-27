@@ -7,8 +7,7 @@ import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
 
-
-contract NFTStaking is ReentrancyGuard, Ownable,IERC721Receiver {
+contract NFTStaking is ReentrancyGuard, Ownable, IERC721Receiver {
     ERC20T3 public rewardToken;
     tigernft public stakableNFT;
     uint256 public rewardRate = 10; // 10 ERC20 tokens per day
@@ -24,7 +23,10 @@ contract NFTStaking is ReentrancyGuard, Ownable,IERC721Receiver {
     event Unstaked(address indexed user, uint256 tokenId);
     event RewardClaimed(address indexed user, uint256 amount);
 
-    constructor(ERC20T3 _rewardToken, tigernft _stakableNFT) Ownable(msg.sender){
+    constructor(
+        ERC20T3 _rewardToken,
+        tigernft _stakableNFT
+    ) Ownable(msg.sender) {
         rewardToken = _rewardToken;
         stakableNFT = _stakableNFT;
     }
@@ -49,7 +51,11 @@ contract NFTStaking is ReentrancyGuard, Ownable,IERC721Receiver {
 
         _claimReward(msg.sender);
 
-        stakableNFT.safeTransferFrom(address(this), msg.sender, stakeInfo.tokenId);
+        stakableNFT.safeTransferFrom(
+            address(this),
+            msg.sender,
+            stakeInfo.tokenId
+        );
 
         delete stakes[msg.sender];
 
@@ -73,7 +79,9 @@ contract NFTStaking is ReentrancyGuard, Ownable,IERC721Receiver {
         }
     }
 
-    function _calculateReward(StakeInfo memory stakeInfo) internal view returns (uint256) {
+    function _calculateReward(
+        StakeInfo memory stakeInfo
+    ) internal view returns (uint256) {
         uint256 stakingDuration = block.timestamp - stakeInfo.lastClaimTime;
         uint256 rewardAmount = (stakingDuration * rewardRate) / 1 days;
         return rewardAmount;
@@ -88,9 +96,12 @@ contract NFTStaking is ReentrancyGuard, Ownable,IERC721Receiver {
     }
 
     // Implementing ERC721 receiver function
-    function onERC721Received(address operator, address from, uint256 tokenId, bytes calldata data) pure external override returns (bytes4) {
-   
+    function onERC721Received(
+        address operator,
+        address from,
+        uint256 tokenId,
+        bytes calldata data
+    ) external pure override returns (bytes4) {
         return this.onERC721Received.selector;
     }
-
 }
