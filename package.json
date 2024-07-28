@@ -9,5 +9,8 @@
   },
   "scripts": {
     "format": "prettier --write --plugin=prettier-plugin-solidity '**/*.sol'"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.0.2"
   }
 }

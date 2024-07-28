@@ -3,8 +3,9 @@ pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
+import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
-contract MyERC721 is ERC721 {
+contract TigerNFTT3 is ERC721, ReentrancyGuard {
     using Strings for uint256;
 
     uint256 public constant MAX_SUPPLY = 10;
@@ -16,7 +17,7 @@ contract MyERC721 is ERC721 {
         baseTokenURI = "ipfs://bafybeihrklb222sgiowrjceg76rmqqpzqiyujmnufv3cq57ssemdxbbe4u/";
     }
 
-    function mint(address to) external {
+    function mint(address to) external nonReentrant {
         require(totalSupply < MAX_SUPPLY, "All NFTs have been minted");
         uint256 tokenId = totalSupply + 1;
         totalSupply++;

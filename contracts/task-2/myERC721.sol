@@ -3,8 +3,9 @@ pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
+import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
-contract TigerNFT is ERC721 {
+contract MyERC721 is ERC721, ReentrancyGuard {
     using Strings for uint256;
 
     uint256 public constant MAX_SUPPLY = 10;
@@ -12,16 +13,16 @@ contract TigerNFT is ERC721 {
     string private baseTokenURI;
     mapping(uint256 => address) private _tokenOwners;
 
-    constructor() ERC721("Tiger", "TGR")  {
+    constructor() ERC721("Tiger", "TGR") {
         baseTokenURI = "ipfs://bafybeihrklb222sgiowrjceg76rmqqpzqiyujmnufv3cq57ssemdxbbe4u/";
     }
 
-    function mint() external {
+    function mint(address to) external nonReentrant {
         require(totalSupply < MAX_SUPPLY, "All NFTs have been minted");
         uint256 tokenId = totalSupply + 1;
         totalSupply++;
-        _safeMint(msg.sender, tokenId);
-        _tokenOwners[tokenId] = msg.sender; // Track token ownership
+        _safeMint(to, tokenId);
+        _tokenOwners[tokenId] = to; // Track token ownership
     }
 
     function _baseURI() internal view override returns (string memory) {

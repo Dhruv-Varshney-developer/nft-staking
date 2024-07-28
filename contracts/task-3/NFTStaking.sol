@@ -1,16 +1,16 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "module-2/task-3/ERC20T3.sol";
-import "module-2/task-3/TigernftT3.sol";
-import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "./ERC20T3.sol";
+import "./TigernftT3.sol";
+import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
 
-contract NFTStaking is ReentrancyGuard, Ownable, IERC721Receiver {
-    ERC20T3 public rewardToken;
-    tigernft public stakableNFT;
-    uint256 public rewardRate = 10; // 10 ERC20 tokens per day
+abstract contract NFTStaking is ReentrancyGuard, Ownable, IERC721Receiver {
+    ERC20T3 public immutable rewardToken;
+    TigerNFTT3 public immutable stakableNFT;
+    uint256 public constant rewardRate = 10; // 10 ERC20 tokens per day
 
     struct StakeInfo {
         uint256 tokenId;
@@ -25,12 +25,13 @@ contract NFTStaking is ReentrancyGuard, Ownable, IERC721Receiver {
 
     constructor(
         ERC20T3 _rewardToken,
-        tigernft _stakableNFT
+        TigerNFTT3 _stakableNFT
     ) Ownable(msg.sender) {
         rewardToken = _rewardToken;
         stakableNFT = _stakableNFT;
     }
 
+    // Note: block.timestamp has risks due to potential miner manipulation but used to keep the code simple.
     function stake(uint256 tokenId) external nonReentrant {
         require(stakes[msg.sender].tokenId == 0, "Already staking");
         require(tokenId >= 1 && tokenId <= 10, "Invalid tokenId range");
@@ -66,6 +67,7 @@ contract NFTStaking is ReentrancyGuard, Ownable, IERC721Receiver {
         _claimReward(msg.sender);
     }
 
+    // Note: block.timestamp has risks due to potential miner manipulation but used to keep the code simple.
     function _claimReward(address user) internal {
         StakeInfo storage stakeInfo = stakes[user];
         require(stakeInfo.tokenId != 0, "No token staked");
@@ -79,6 +81,7 @@ contract NFTStaking is ReentrancyGuard, Ownable, IERC721Receiver {
         }
     }
 
+    // Note: block.timestamp has risks due to potential miner manipulation but used to keep the code simple.
     function _calculateReward(
         StakeInfo memory stakeInfo
     ) internal view returns (uint256) {
@@ -97,7 +100,10 @@ contract NFTStaking is ReentrancyGuard, Ownable, IERC721Receiver {
 
     // Implementing ERC721 receiver function
     function onERC721Received(
-        
+        address operator,
+        address from,
+        uint256 tokenId,
+        bytes calldata data
     ) external pure override returns (bytes4) {
         return this.onERC721Received.selector;
     }
